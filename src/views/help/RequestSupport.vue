@@ -8,11 +8,6 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-12">
-                    <div v-if="error" class="alert alert-danger">{{error}}</div>
-                    <div
-                      v-if="status==='submitted'"
-                      class="alert alert-success"
-                    >Your request (Id: {{form.requestId}}) created successfully</div>
                     <h4 class="mb-4 text-primary">What support you need?</h4>
                   </div>
                 </div>
@@ -226,6 +221,38 @@
                     <fieldset role="group" class="b-form-group form-group">
                       <div role="group" class>
                         <input
+                          id="city"
+                          type="text"
+                          placeholder="City/Area"
+                          class="form-control"
+                          v-model="form.contact.city" 
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="col-sm-6">
+                    <fieldset role="group" class="b-form-group form-group">
+                      <div role="group" class>
+                        <input
+                          id="country"
+                          type="text"
+                          placeholder="Country"
+                          class="form-control"
+                          v-model="form.contact.country" 
+                        />
+                         <vue-modaltor  :visible="open" @hide="hideModal">
+                              <div v-if="error" class="alert alert-danger">{{error}}</div>
+                              <div v-if="(status==='submitted' || status==='new')" class="alert alert-success">Your request (Id: {{form.requestId}}) created successfully</div>
+                         </vue-modaltor>
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <fieldset role="group" class="b-form-group form-group">
+                      <div role="group" class>
+                        <input
                           id="postCode"
                           type="text"
                           placeholder="Postal Code"
@@ -236,98 +263,11 @@
                         <div v-if="submitted && $v.form.contact.postCode.$error" class="invalid-feedback">
                               <span v-if="!$v.form.contact.postCode.required">Postcode is required</span>
                         </div>
-                        <div v-if="selfPostCodeStatus === 'Invalid PostCode'" class="invalid-postcode">{{selfPostCodeStatus}}</div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="validateSelfRequest"
-                      >Validate</button>
                       </div>
                     </fieldset>
                   </div>
                 </div>
-                <div class="row" v-if="seenSelf">
-                  <div class="col-sm-12">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="address">Full Address</label>
-                        <input
-                          id="address"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.contact.address"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-				        </div>
-                <div class="row" v-if="seenSelf">
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="town">Postal Town</label>
-                        <input
-                          id="town"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.contact.town"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="city">City</label>
-                        <input
-                          id="city"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.contact.city"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-				        <div class="row" v-if="seenSelf">
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="country">Country</label>
-                        <input
-                          id="country"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.contact.country"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="postCode">Postal Code</label>
-                        <input
-                          id="postCode"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.contact.postCode"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -445,6 +385,34 @@
                     <fieldset role="group" class="b-form-group form-group">
                       <div role="group" class>
                         <input
+                          id="city"
+                          type="text"
+                          placeholder="City/Area"
+                          class="form-control"
+                          v-model="form.requestor.city" 
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div class="col-sm-6">
+                    <fieldset role="group" class="b-form-group form-group">
+                      <div role="group" class>
+                        <input
+                          id="country"
+                          type="text"
+                          placeholder="Country"
+                          class="form-control"
+                          v-model="form.requestor.country" 
+                        />
+                      </div>
+                    </fieldset>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <fieldset role="group" class="b-form-group form-group">
+                      <div role="group" class>
+                        <input
                           id="postCode"
                           type="text"
                           placeholder="Postal Code"
@@ -455,94 +423,6 @@
                         <div v-if="submitted && submittedOther && $v.form.requestor.postCode.$error" class="invalid-feedback">
                               <span v-if="!$v.form.requestor.postCode.required">Postcode is required</span>
                         </div>
-                        <div v-if="otherPostCodeStatus === 'Invalid PostCode'" class="invalid-postcode">{{otherPostCodeStatus}}</div>
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="validateOtherRequest"
-                      >Validate</button>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-                <div class="row" v-if="seenOther">
-                  <div class="col-sm-12">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="address">Full Address</label>
-                        <input
-                          id="address"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.requestor.address"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-				        </div>
-                <div class="row" v-if="seenOther">
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="town">Postal Town</label>
-                        <input
-                          id="town"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.requestor.town"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="city">City</label>
-                        <input
-                          id="city"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.requestor.city"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-				        <div class="row" v-if="seenOther">
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="country">Country</label>
-                        <input
-                          id="country"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.requestor.country"
-                        />
-                      </div>
-                    </fieldset>
-                  </div>
-                  <div class="col-sm-6">
-                    <fieldset role="group" class="b-form-group form-group">
-                      <div role="group" class>
-                        <label for="postCode">Postal Code</label>
-                        <input
-                          id="postCode"
-                          type="text"
-                          :readonly="true"
-                          class="form-control"
-                          v-model="form.requestor.postCode"
-                        />
                       </div>
                     </fieldset>
                   </div>
@@ -581,15 +461,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-12" id="formStatus">
-              <div v-if="error" class="alert alert-danger">{{error}}</div>
-                <div
-                      v-if="status==='submitted'"
-                      class="alert alert-success"
-                    >Your request (Id: {{form.requestId}}) created successfully</div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -602,6 +473,7 @@ import axios from "axios";
 import { required, email, numeric } from "vuelidate/lib/validators";
 
 const validName = function (name) {
+    name=name.trim();
     return (name.length >= 2 && /^(?=.{1,50}$)[a-z]+(?:['_.\s][a-z]+)*$/i.test(name));
 }
 
@@ -612,16 +484,13 @@ const validPhoneNo = function (phone) {
 export default {
   data() {
     return {
-      seenSelf: false,
-      seenOther: false,
       shouldDisabled: false,
       submitted: false,
       submittedOther: false,
       validateSelfAlone: false,
-      selfPostCodeStatus: "",
-      otherPostCodeStatus:"",
       requestId:"",
       requestStatus: false,
+      open: false,
       donation_categories: [
         "General",
         "Food",
@@ -654,10 +523,10 @@ export default {
           email: "",
           houseNo: "",
           streetName: "",
-          town: "",
-          city: "",
+          address: "",
           country: "",
-          postCode: ""
+          postCode: "",
+          city:""
         },
         requestor: {
           name: "",
@@ -666,10 +535,10 @@ export default {
           email: "",
           houseNo: "",
           streetName: "",
-          town: "",
-          city: "",
+          address: "",
           country: "",
-          postCode: ""
+          postCode: "",
+          city:""
         }
       },
       error: null,
@@ -689,7 +558,7 @@ export default {
                 phone: { required, validPhoneNo },
                 houseNo: { required },
                 streetName: { required },
-                postCode: {required}             
+                postCode: {required}            
              },
              requestor: {
                 email: { required, email },
@@ -702,50 +571,23 @@ export default {
          }    
   },
   methods: {
-    validateSelfRequest: function () {
-      axios.get("https://api.postcodes.io/postcodes/"+this.form.contact.postCode)
-      .then((response)  =>  {
-        this.seenSelf=true;
-        this.form.contact.address=this.form.contact.houseNo+", "+this.form.contact.streetName;
-        this.form.contact.town=response.data.result.admin_ward;
-        this.form.contact.city=response.data.result.primary_care_trust;
-        this.form.contact.country=response.data.result.country;
-        this.form.contact.postCode=response.data.result.postcode;
-        this.selfPostCodeStatus = "Success";
-      }, (error)  =>  {
-        this.seenSelf=false;
-        this.selfPostCodeStatus = "Invalid PostCode";
-      })
-    },
-    validateOtherRequest: function () {
-      axios.get("https://api.postcodes.io/postcodes/"+this.form.requestor.postCode)
-      .then((response)  =>  {
-        this.seenOther=true;
-        this.form.requestor.address=this.form.requestor.houseNo+", "+this.form.requestor.streetName;
-        this.form.requestor.town=response.data.result.admin_ward;
-        this.form.requestor.city=response.data.result.primary_care_trust;
-        this.form.requestor.country=response.data.result.country;
-        this.form.requestor.postCode=response.data.result.postcode;
-        this.otherPostCodeStatus = "Success";
-      }, (error)  =>  {
-        this.otherPostCodeStatus = "Invalid PostCode";
-        this.seenOther=false;
-      })
+    hideModal() {
+              this.open = false
     },
     submitRequest() {
-
       this.submitted = true;
 
       if(this.form.requesting_for === 'other') {
           this.submittedOther=true;
           this.validateSelfAlone=this.$v.form.requestor.$invalid;
           this.form.requestor.address=this.form.requestor.houseNo+", "+this.form.requestor.streetName;
+          this.form.requestor.name=this.form.requestor.name.trim();
       } else {
           this.submittedOther=false;
           this.validateSelfAlone=false;
           this.form.contact.address=this.form.contact.houseNo+", "+this.form.contact.streetName;
+          this.form.contact.name=this.form.contact.name.trim();
       }
-
       
       // stop here if form is invalid
       this.$v.$touch();
@@ -772,10 +614,11 @@ export default {
           this.status = "submitted";
           this.error = null;
           this.form.requestId=docRef.id;
+          this.open = true;
+          this.requestStatus=false;
           setTimeout(() => {
             this.status = "new";
             this.error = null;
-            this.$router.push('/profile');
           }, 5 * 1000);
         })
         .catch(error => {
@@ -799,10 +642,22 @@ export default {
     margin-bottom: 0.5rem !important;
 }
 
-.invalid-postcode {
-    margin-top: 0.25rem;
-    margin-left: 0.25rem;
-    font-size: 80%;
-    color: #f86c6b;
+.modal-vue--content {
+    background-color: rgb(240, 243, 245);
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: 0.25rem;
 }
+
+.modal-vue--content-panel {
+    margin-top: 1.5rem !important;
+    margin-left: 1.5rem !important;
+    margin-right: 1.5rem !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.modal-vue-overlay {
+  opacity: 0.5;
+}
+
 </style>
